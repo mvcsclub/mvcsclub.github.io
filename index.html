@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <title>MVCS Club</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <script src="assets/sweetalert/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/sweetalert/sweetalert.css">
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/set1.css" />
+    <script src="assets/js/keys.js"></script>
+    <script src="https://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        Parse.initialize(ret1(), ret2());
+        var Emails = Parse.Object.extend("Emails");
+        var query = new Parse.Query(Emails);
+        var emailsArr = [];
+        query.find({
+            success: function(results) {
+                for(var i = 0 ; i < results.length;i++)
+                    emailsArr.push(results[i].get('emails')+"");
+            },
+            error: function(error) {
+            }
+        });
+        function saveToParse() {
+            var emailstr = (document.getElementById('emailstuff').value + "").trim();
+            if (!validateEmail(emailstr)) {
+                sweetAlert("Error!", "Invalid Email Address", "error")
+            } else {
+                if((emailsArr.indexOf(emailstr) > -1)){
+                    sweetAlert("Welcome!", "Stay posted to receive emails regarding MVCS club meetings & events!", "success")
+                }
+                else{
+                    var TestObject = Parse.Object.extend("Emails");
+                    var testObject = new TestObject();
+                    testObject.save({
+                        emails: emailstr
+                    }).then(function(object) {
+                        sweetAlert("Welcome!", "Stay posted to receive emails regarding MVCS club meetings & events!", "success")
+                    });
+                }
+            }
+        }
+        function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+    </script>
+</head>
+<body data-spy="scroll">
+
+    <!-- ******HEADER****** -->
+    <header id="header" class="header">
+        <div class="container">
+            <h1 class="logo pull-left">
+                <a class="scrollto" href="#promo">
+                    <span class="logo-title">MVCS</span>
+                </a>
+            </h1>
+            <!--//logo-->
+            <nav id="main-nav" class="main-nav navbar-right" role="navigation">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <!--//nav-toggle-->
+                </div>
+                <!--//navbar-header-->
+                <div class="navbar-collapse collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active nav-item sr-only"><a class="scrollto" href="#promo">Home</a></li>
+                        <li class="nav-item"><a class="scrollto" href="#about">About</a></li>
+                        <li class="nav-item"><a class="scrollto" href="#features">Topics</a></li>
+                        <li class="nav-item"><a class="scrollto" href="#news">News</a></li>
+                        <li class="nav-item last"><a class="scrollto" href="#contact">Contact</a></li>
+                    </ul>
+                    <!--//nav-->
+                </div>
+                <!--//navabr-collapse-->
+            </nav>
+            <!--//main-nav-->
+        </div>
+    </header>
+    <!--//header-->
+
+    <!-- ******PROMO****** -->
+    <section id="promo" class="promo section offset-header">
+        <div class="container text-center">
+            <h2 class="title"><span style="color: white;">MVCS</span><span class="highlight"> CLUB</span></h2>
+            <p class="intro" style="font-size: 24px; margin-bottom: 30px;">Monta Vista Computer Science Club
+                <br>Dedicated to teaching, inspiring, and enabling students interested in computer science</p>
+            <div class="btns">
+                <span class="input input--minoru">
+                    <input class=" input__field input__field--minoru" placeholder="Enter Your Email to Sign Up" type="text" id="emailstuff"/>
+                    <label class="input__label input__label--minoru" for="emailstuff"><br></label>
+                    <a class="btn btn-cta-secondary" style="background-color: #FFD700; color: #993299;" href="javascript:void(0)" onclick="saveToParse();">SIGNUP</a>
+              </span>
+            </div>
+            <ul class="list-inline">
+                <li><a href="#" target="https://github.com/mv-compsci-club/">Our Projects</a></li>
+            </ul>
+            <!--//meta-->
+        </div>
+        <!--//container-->
+    </section>
+    <!--//promo-->
+    <!-- ******ABOUT****** -->
+    <section id="about" class="about section">
+        <div class="container">
+            <h2 class="title text-center">ABOUT US</h2>
+            <p class="intro text-center">   MVCS enables you to take your computer science skills to the next level. If you've taken an MV course such as Java or APCS but want to go to the <b>next level</b>, then MVCS is for you. Whether you want to become a web developer, a game designer, an algorithmic programmer, or pursue other fields, there is something for you in MVCS.</p>
+            <div class="row">
+                <div class="item col-md-6 col-sm-6 col-xs-12">
+                    <div class="icon-holder">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="sub-title">Awesome Lectures</h3>
+                        <p> Each week on Wednesday in room E203, we lecture on a new and interesting topic, ranging from Cryptography to Spam Filtering. We optimize for topics that are outside-the-box, have practical applications, yet are easy enough to write code for <em> right off the bat </em> without needing much prior experience. All these lectures fit into a broad monthly topic.</p>
+                        <p> This Month's Topic: <b> Bayes' Theorem </b> </p>
+                        <p> <a href="crawly.py"> Code for October 7th </a> </p>
+                    </div>
+                    <!--//content-->
+                </div>
+                <!--//item-->
+                <div class="item col-md-6 col-sm-6 col-xs-12">
+                    <div class="icon-holder">
+                        <i class="fa fa-clock-o"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="sub-title">Monthly Contests</h3>
+                        <p> We have monthly contests based on the concepts we cover in Lecture Day. Prove that you've been paying attention by applying these concepts to real life problems! You can win prizes and demonstrate your understanding of computer science.
+                        </p>
+                        <p> This Month's Contest: <b> Wikipedia Freefall </b> Opens Oct. 31st!</p>
+                    </div>
+                    <!--//content-->
+                </div>
+                <!--//item-->
+            </div>
+            <div class="row">
+                <!--//item-->
+                <div class="clearfix visible-md"></div>
+                <div class="item col-md-6 col-sm-6 col-xs-12">
+                    <div class="icon-holder">
+                        <i class="fa fa-terminal"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="sub-title">Algorithms Day</h3>
+                        <p> Do you want to <em> specialize</em>? If you are interested in algorithms or math, consider attending <b> Algorithms Day (Thursday After School) </b>. We'll teach you how to train for prestigious computing competitions such as USACO and ACSL. We've had an impressive success rate so far, producing 9 USACO Silver medalists and 2 USACO Gold medalists (out of about 200 worldwide). You will be coached by former USACO nationwide finalist Nikhil Cheerla. </p>
+                    </div>
+                    <!--//content-->
+                </div>
+                <!--//item-->
+                <div class="item col-md-6 col-sm-6 col-xs-12">
+                    <div class="icon-holder">
+                        <i class="fa fa-code"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="sub-title"> Work Day</h3>
+                        <p>
+                            Alternatively, attend <b> Work Day (Thursday Lunch) </b> if you want to explore computer science further, through areas such as web or app development. On Work Day, you can get Java or APCS homework help, work on monthly contests, or learn about development. We will teach about concepts such as collaborating on code using Git/GitHub, HTML/CSS/JS, and multi-platform app development. If you want to learn, get CS help, or simply chill, Work Day is the place for you.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!--//row-->
+        <!--//container-->
+    </section>
+    <!--//about-->
+    <!-- ******FEATURES****** -->
+    <section id="features" class="features section">
+        <div class="container text-center">
+            <h2 class="title" style="color:white;">Links & Resources</h2>
+            <ul class=" list-unstyled">
+                <li>Sept. 9: <a  style="color:white; text-decoration: underline;" href = "https://docs.google.com/presentation/d/11eETwkxr6Q6oryxiuyL7ZOxQNGKERtEGqEdqZF_1fTI/edit#slide=id.gc6f8badac_0_0">General Intro to the Club</a></li>
+                <li>Sept. 16: <a  style="color:white; text-decoration: underline;" href = "https://docs.google.com/presentation/d/11WRH_rfaMdvY6w_c1dXKexeXtHiXGK7izn0PlzzRjfU/edit?usp=sharing">Bayes' Theorem</a></li>
+                <li>Sept. 23: <a  style="color:white; text-decoration: underline;" href = "https://docs.google.com/presentation/d/1WDcUTbzg5ioCTfGleLT2imM0j4_rU8dq64ZMJ1sxhyw/edit?usp=sharing">Spam Filtering (Application of Bayes' Theorem)</a></li>
+                <li>Sept. 30: <a  style="color:white; text-decoration: underline;" href = "https://docs.google.com/presentation/d/14la00GNUTZfJjcuIqdvppM6nUlTObhHbnHebxjgtF_w/edit?usp=sharing">Spell Check (Challenge Specification)</a></li>
+            </ul>
+        </div>
+        <!--//container-->
+    </section>
+    <!--//features-->
+    <!-- ******NEWS****** -->
+    <section id="news" class="license section">
+        <div class="container">
+            <div class="license-inner" >
+                <h2 class="title text-center" style="margin-bottom: 0px;">News</h2>
+                <ul class="list-unstyled">
+                    <li><h3>Spell check contest!</h3><h5>Due by Friday, October 9</h5><p>This is the first contest of the year, so show off your coding skills! Your task is to create a spell check (use Bayes' Theorem!!!) and feel free to use the powerpoints for reference. Send your finished program to mvcsclub@gmail.com with the subject line: Spell Check Contest. Good luck!</p></li>
+                </ul>
+            </div>
+            <!--//license-inner-->
+        </div>
+        <!--//container-->
+    </section>
+    <!--//how-->
+    <!-- ******CONTACT****** -->
+    <section id="contact" class="contact section has-pattern">
+        <div class="container">
+            <div class="contact-inner">
+
+                <h1 class="highlight title text-center" style="color: #FFD700;">Contact</h1>
+                <div class="clearfix"></div>
+                <h3 style="text-align: center; color: white;">Email us at <a style="color: white;" href="mailto:mvcsclub@gmail.com" target="_top">mvcsclub@gmail.com</a></h3>
+            </div><!--//contact-inner-->
+        </div><!--//container-->
+    </section><!--//contact-->
+    <!-- Javascript -->
+    <script type="text/javascript" src="assets/plugins/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+</body>
+</html>
