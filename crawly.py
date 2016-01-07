@@ -25,7 +25,7 @@ def dfs(url):
 	visited.append(url);
 	links = getChildLinks(url)
 	for link in links:
-		dfs(link); 
+		dfs(link);
 
 
 print "URL crawling with dfs:"
