@@ -13,7 +13,7 @@ except:
 
 
 
-def colorDist(pix1, pix2):
+def colorDist(pix1, pix2): #computes Euclidean distance between two colors
 	return ((pix1[0] - pix2[0]) ** 2 + (pix1[1] - pix2[1]) ** 2 + (pix1[2] - pix2[2]) ** 2) ** (0.5)
 
 

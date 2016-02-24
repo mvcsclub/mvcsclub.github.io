@@ -14,7 +14,7 @@ except:
 
 
 def colorDist(pix1, pix2):
-	return ((pix1[0] - pix2[0]) ** 2 + (pix1[1] - pix2[1]) ** 2 + (pix1[2] - pix2[2]) ** 2) ** (0.5)
+	return ((pix1[0] - pix2[0]) ** 2 + (pix1[1] - pix2[1]) ** 2 + (pix1[2] - pix2[2]) ** 2) ** (0.5) 
 
 
 width, height = img.size
